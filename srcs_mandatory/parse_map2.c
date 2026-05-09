@@ -45,7 +45,7 @@ int	ft_check_player(t_map_sett *map_sett)
 
 int	ft_check_invalid_char(t_map_sett *map_sett)
 {
-	int		i;
+	int		i
 	int		j;
 	char	**map;
 

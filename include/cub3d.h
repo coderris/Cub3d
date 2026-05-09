@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CUB
-#define CUB
+#ifndef CUB_H
+#define CUB_H
 
 # include "../libs/libft/includes/libft.h"
 # include "../libs/mlx/mlx.h"
@@ -83,20 +83,6 @@ typedef struct s_game_info
 	double	old_time;
 }	t_game_info;
 
-typedef struct s_player
-{
-	double	pos_x;
-	double	pos_y;
-
-	double	dir_x;
-	double	dir_y;
-
-	double	plane_x;
-	double	plane_y;
-
-	char	spawn;
-}	t_player;
-
 typedef struct s_game
 {
 	t_textures	textures;
@@ -105,8 +91,21 @@ typedef struct s_game
 	t_rgb		ceiling;
 
 	t_map		map;
-	t_player	player;
+	t_game_info	player;
+
+	char		*name_window;
+	char		*name_map;
 }	t_game;
+
+typedef struct s_game_instance
+{
+	void		*mlx_ptr;
+	void		*win_ptr;
+	void		*img;
+	char		*pixel;
+	t_game		map_data;
+
+}	t_game_instance;
 
 
 
