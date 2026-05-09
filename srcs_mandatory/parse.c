@@ -74,7 +74,7 @@ static char	**resize_map(char **old_map, int old_size, char *new_line)
 	return (new_map);
 }
 //larga función
-static int	ft_check_closed(t_map_sett *map_sett)
+int	ft_check_closed(t_map_sett *map_sett)
 {
 	int		i;
 	int		j;

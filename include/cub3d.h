@@ -113,7 +113,7 @@ typedef struct s_game
 // PARSE.C
 
 int		ft_parse_map(char *map, t_map_sett *map_sett);
-
+int		ft_check_closed(t_map_sett *map_sett);
 // PARSE_UTILS.C
 
 int		ft_fill_textures(char *line, t_map_sett *map_sett);
