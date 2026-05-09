@@ -24,7 +24,7 @@
 # define WEST "WE"
 # define EAST "EA"
 # define FLOOR "F"
-#define CEILING "C"
+# define CEILING "C"
 # define WALL '1'
 # define EMPTY '0'
 
@@ -38,27 +38,75 @@
 # define D 100
 # define RIGHT 65363
 
+typedef struct s_map
+{
+	char	**grid;
+	int		width;
+	int		height;
+}	t_map;
+
 typedef struct s_map_sett
 {
-	char	*N_text;
-	char	*S_text;
-	char	*W_text;
-	char	*E_text;
-	int		*Floor;
-	int		*Ceiling;
-} t_map_sett;
+	char	**map;
+	char	*n_text;
+	char	*s_text;
+	char	*w_text;
+	char	*e_text;
+	int		*floor;
+	int		*ceiling;
+}	t_map_sett;
+
+typedef struct s_rgb
+{
+	int	r;
+	int	g;
+	int	b;
+}	t_rgb;
+
+typedef struct s_textures
+{
+	char	*no;
+	char	*so;
+	char	*we;
+	char	*ea; 
+}	t_textures;
 
 typedef struct s_game_info
 {
-	double	X;
-	double	Y;
-	double	dir_X;
-	double	dir_Y;
-	double	plane_X;
-	double	plane_Y;
+	double	x;
+	double	y;
+	double	dir_x;
+	double	dir_y;
+	double	plane_x;
+	double	plane_y;
 	double	time;
 	double	old_time;
-} t_game_inf;
+}	t_game_info;
+
+typedef struct s_player
+{
+	double	pos_x;
+	double	pos_y;
+
+	double	dir_x;
+	double	dir_y;
+
+	double	plane_x;
+	double	plane_y;
+
+	char	spawn;
+}	t_player;
+
+typedef struct s_game
+{
+	t_textures	textures;
+
+	t_rgb		floor;
+	t_rgb		ceiling;
+
+	t_map		map;
+	t_player	player;
+}	t_game;
 
 
 
@@ -69,8 +117,30 @@ int		ft_parse_map(char *map, t_map_sett *map_sett);
 // PARSE_UTILS.C
 
 int		ft_fill_textures(char *line, t_map_sett *map_sett);
-int		ft_add_text(char *line, t_map_sett *map_sett, char *texture, char *dir);
+char	*ft_add_text(char *line, t_map_sett *map_sett, char *texture, char *dir);
 char	*ft_check_line(char *line);
+
+//parse_utils2.c
+
+int		ft_isnumeric(char *str);
+void	ft_free_strarr(char **arr);
+int		ft_strarr_len(char **arr);
+int		*ft_take_nums(char *line);
+
+
+//parse_map1.c
+char	*ft_find_map_start(int fd);
+char	**ft_add_line(char **map, int i, char *line);
+char	**ft_read_map(int fd, char *line);
+int		ft_validate_map(t_map_sett *map_sett);
+int		ft_check_map(int fd, t_map_sett *map_sett);
+
+//parse_map2.c
+int		ft_check_player(t_map_sett *map_sett);
+int		ft_check_invalid_char(t_map_sett *map_sett);
+int		ft_check_ext(char *map);
+int		ft_check_pos(char **map, int col, int row);
+
 
 // ERROR_MESSAGE.C
 

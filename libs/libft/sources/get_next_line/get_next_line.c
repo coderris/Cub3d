@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lanton-m <lanton-m@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: najlghar <najlghar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/20 15:56:32 by lanton-m          #+#    #+#             */
-/*   Updated: 2025/09/20 15:56:34 by lanton-m         ###   ########.fr       */
+/*   Updated: 2026/05/07 13:44:58 by najlghar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,3 +88,4 @@ static char	*ft_slice(char **str)
 	}
 	return (ret);
 }
+

@@ -1,0 +1,17 @@
+F 20,235,5
+C 5,221,231
+NO ./rscs/textures/wall.png
+SO ./rscs/textures/wall.png
+WE ./rscs/textures/wall.png
+EA ./rscs/textures/wall.png
+
+
+1111111111
+1010000001
+1000000001
+1011100001
+101 100001
+1011100001
+1000000001
+10000000W1
+1111111111

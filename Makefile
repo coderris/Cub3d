@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: lanton-m <lanton-m@student.42malaga.com    +#+  +:+       +#+         #
+#    By: najlghar <najlghar@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/04/05 20:20:23 by lanton-m          #+#    #+#              #
-#    Updated: 2026/04/05 21:40:17 by lanton-m         ###   ########.fr        #
+#    Updated: 2026/05/06 17:32:37 by najlghar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,7 @@ NAME = cub3d
 
 # Compilation flags
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -g3
+CFLAGS = -g #-Wall -Wextra -Werror -g3
 # Linker flags : 'libft', 'mlx' and 'mlx' for Linux, 'lib' for X Window System, 'xext' for a single extension, and 'lm' for the math library
 LFLAGS = -lft -lmlx -lmlx_Linux -lX11 -lXext -lm
 
@@ -34,10 +34,11 @@ HEADER_PATH = ./include/
 
 # Path to libraries
 LIBFT_PATH = $(LIBS_PATH)libft/
+LIBFT = $(LIBFT_PATH)libft.a
 MLX_PATH = $(LIBS_PATH)mlx/
 
 # Source files
-SRCS_FILES = 
+SRCS_FILES = main.c error_message.c parse.c parse_utils.c cleaners.c
 
 
 # Object files
@@ -65,9 +66,9 @@ all : $(NAME)
 
 # The target to build the mandatory part
 $(NAME) : $(OBJS_FILES)
-	make -C $(LIBFT_PATH) --no-print-directory
+	make -C $(LIBFT_PATH) all --no-print-directory
 	make -C $(MLX_PATH) --no-print-directory
-	$(CC) $(CFLAGS) $(OBJS_FILES) -o $(NAME) $(SRCS_PATH)main.c $(PATH_LIBS) $(LFLAGS)
+	$(CC) $(CFLAGS) $(OBJS_FILES) $(LIBFT) -o $(NAME) $(PATH_LIBS) $(LFLAGS)
 	@echo "$(YELLOW)\n !Use this command in the folder root: ./so_long rscs/maps/valids/<map_name>.ber\n$(DEF_COLOR)" 
 
 # Compiles C source files into object files

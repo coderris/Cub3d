@@ -14,14 +14,13 @@
 
 static void	ft_sett_init(t_map_sett *map_sett)
 {
-	map_sett->N_text = NULL;
-	map_sett->S_text = NULL;
-	map_sett->W_text = NULL;
-	map_sett->E_text = NULL;
-	map_sett->Floor = malloc(sizeof(int) * 3);
-	map_sett->Ceiling = malloc(sizeof(int ) * 3);
-	if (!map_sett->Floor || !map_sett->Ceiling)
-		clean_exit(&map_sett, 5);
+	map_sett->map = NULL;
+	map_sett->n_text = NULL;
+	map_sett->s_text = NULL;
+	map_sett->w_text = NULL;
+	map_sett->e_text = NULL;
+	map_sett->floor = NULL;
+	map_sett->ceiling = NULL;
 }
 
 int	main(int argc, char **argv)
@@ -31,7 +30,15 @@ int	main(int argc, char **argv)
 	if (argc != 2)
 		return (printf("Usage: ./cub3d *.cub\n"), 1);
 	map_sett = malloc(sizeof(t_map_sett));
-	ft_sett_init(&map_sett);
-	if (ft_parse_map(argv[1], &map_sett))
+	if (!map_sett)
+		return (ft_print_error(5), 1);
+	ft_sett_init(map_sett);
+
+	if (ft_parse_map(argv[1], map_sett))
+	{
+		clean_exit(map_sett, 0);
 		return (1);
+	}
+	clean_exit(map_sett, 0);
+	return (0);
 }

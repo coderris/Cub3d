@@ -1,0 +1,29 @@
+F 20,235,5
+C 5,221,231
+NO ./rscs/textures/wall.png
+SO ./rscs/textures/wall.png
+WE ./rscs/textures/wall.png
+EA ./rscs/textures/wall.png
+
+
+1111111111
+1010000001
+1000000001
+1011100001
+101 100001
+1011100001
+1000000001
+10000000W1
+1111111111
+
+
+(Para todos errores)Si da error, tienes que salir con Error, 
+	y un mensaje explicito/explicativo de porque ha salido
+Comprobar que el mapa este cerrado.
+No puede haber caracteres por fuera del mapa
+Tiene que haber un jugador
+Solo pueden existir 6 characteres total (0,1,N,S,E,W)
+	No puede haber lineas vacias en el mapa ni espacios. 
+		Puede haber lineas o espacios vacias en el resto del archivo
+El mapa siempre va ultimo, el resto el orden da igual
+Excepto el mapa, todo el resto tiene que empezar por identificador

@@ -15,14 +15,16 @@
 int	ft_print_error(int err_code)
 {
 	if (err_code == 1)
-		printf("Usage: ./cub3d *.cub\n");
+		printf("Error:\nUsage: ./cub3d *.cub\n");
 	else if (err_code == 2)
-		printf("Check your map extension\n");
+		printf("Error:\nCheck your map extension\n");
 	else if (err_code == 3)
-		printf("Check your map\n");
+		printf("Error:\nCheck your map\n");
 	else if (err_code == 4)
-		printf("Check your map settings\n");
+		printf("Error:\nCheck your map settings\n");
 	else if (err_code == 5)
-		printf("Malloc error\n");
-	
+		printf("Error:\nMalloc error\n");
+	else if (err_code == 6)
+		printf("Error:\nOther error\n");
+	return (0);
 }
