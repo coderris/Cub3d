@@ -63,12 +63,23 @@ typedef struct s_rgb
 	int	b;
 }	t_rgb;
 
+typedef struct s_img
+{
+	void		*img;
+	char		*addr;
+	int			width;
+	int			height;
+	int			bpp;
+	int			line_len;
+	int			endian;
+}	t_img;
+
 typedef struct s_textures
 {
-	char	*no;
-	char	*so;
-	char	*we;
-	char	*ea; 
+	t_img	no;
+	t_img	so;
+	t_img	we;
+	t_img	ea; 
 }	t_textures;
 
 typedef struct s_game_info
@@ -101,10 +112,8 @@ typedef struct s_game_instance
 {
 	void		*mlx_ptr;
 	void		*win_ptr;
-	void		*img;
-	char		*pixel;
+	t_img		screen;
 	t_game		map_data;
-
 }	t_game_instance;
 
 
@@ -140,6 +149,10 @@ int		ft_check_invalid_char(t_map_sett *map_sett);
 int		ft_check_ext(char *map);
 int		ft_check_pos(char **map, int col, int row);
 
+// STRUCT_INIT.C
+
+void	ft_mapstr_init(t_game_instance *game);
+void	ft_sett_init(t_map_sett *map_sett);
 
 // ERROR_MESSAGE.C
 

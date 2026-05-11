@@ -25,6 +25,10 @@ int	ft_print_error(int err_code)
 	else if (err_code == 5)
 		printf("Error:\nMalloc error\n");
 	else if (err_code == 6)
+		printf("Error:\nmlx error\n");
+	else if (err_code == 7)
+		printf("Error:\nLoading textures\n");
+	else
 		printf("Error:\nOther error\n");
 	return (0);
 }

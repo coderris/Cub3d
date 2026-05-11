@@ -49,3 +49,8 @@ void	clean_exit(t_map_sett *map_sett, int err_cod)
 	ft_print_error(err_cod);
 	exit(err_cod);
 }
+
+void	ft_general_clean(int err_cod)
+{
+	if ()
+}
