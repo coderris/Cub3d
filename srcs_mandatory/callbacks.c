@@ -1,0 +1,55 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   callbacks.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lanton-m <lanton-m@student.42malaga.com    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/06/24 21:43:49 by lanton-m          #+#    #+#             */
+/*   Updated: 2026/06/24 22:25:20 by lanton-m         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../include/cub3d.h"
+
+int ft_key_press(int keycode, t_game_instance *game)
+{
+    if (keycode == W || keycode == UP)
+        game->map_data.keys.w = 1;
+    else if (keycode == A || keycode == LEFT)
+        game->map_data.keys.a = 1;
+    else if (keycode == S || keycode == DOWN)
+        game->map_data.keys.s = 1;
+    else if (keycode == D || keycode == RIGHT)
+        game->map_data.keys.d = 1;
+    else if (keycode == LEFT)
+        game->map_data.keys.left = 1;
+    else if (keycode == RIGHT)
+        game->map_data.keys.right = 1;
+    else if (keycode == ESC)
+        ft_close_win(keycode, game);
+    return (0);
+}
+
+int ft_key_release(int keycode, t_game_instance *game)
+{
+    if (keycode == W || keycode == UP)
+        game->map_data.keys.w = 0;
+    else if (keycode == A || keycode == LEFT)
+        game->map_data.keys.a = 0;
+    else if (keycode == S || keycode == DOWN)
+        game->map_data.keys.s = 0;
+    else if (keycode == D || keycode == RIGHT)
+        game->map_data.keys.d = 0;
+    else if (keycode == LEFT)
+        game->map_data.keys.left = 0;
+    else if (keycode == RIGHT)
+        game->map_data.keys.right = 0;
+    return (0);
+}
+
+int ft_close_win(int keycode, t_game_instance *game)
+{
+    ft_general_clean(0);
+    exit(0);
+}

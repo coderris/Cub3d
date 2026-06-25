@@ -51,7 +51,7 @@ int	ft_fill_textures(char *line, t_map_sett *map_sett)
 	return (0);
 }
 
-char	*ft_add_text(char *line, t_map_sett *map_sett, char *texture, char *dir)
+static char	*ft_add_text(char *line, t_map_sett *map_sett, char *texture, char *dir)
 {
 	char	*path;
 
@@ -72,7 +72,7 @@ char	*ft_add_text(char *line, t_map_sett *map_sett, char *texture, char *dir)
 	return (NULL);
 }
 
-char	*ft_check_line(char *line)
+static char	*ft_check_line(char *line)
 {
 	char	*path;
 

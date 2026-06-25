@@ -12,7 +12,7 @@
 
 #include "../include/cub3d.h"
 
-char	*ft_find_map_start(int fd)
+static char	*ft_find_map_start(int fd)
 {
 	char	*line;
 
@@ -28,7 +28,7 @@ char	*ft_find_map_start(int fd)
 	return (line);
 }
 
-char	**ft_add_line(char **map, int i, char *line)
+static char	**ft_add_line(char **map, int i, char *line)
 {
 	char	**tmp;
 
@@ -39,7 +39,7 @@ char	**ft_add_line(char **map, int i, char *line)
 	return (map);
 }
 
-char	**ft_read_map(int fd, char *line)
+static char	**ft_read_map(int fd, char *line)
 {
 	char	**map;
 	int		i;
@@ -65,7 +65,7 @@ char	**ft_read_map(int fd, char *line)
 	return (map);
 }
 
-int	ft_validate_map(t_map_sett *map_sett)
+static int	ft_validate_map(t_map_sett *map_sett)
 {
 	if (ft_check_invalid_char(map_sett))
 		return (1);

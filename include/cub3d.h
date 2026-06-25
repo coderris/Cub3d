@@ -19,6 +19,8 @@
 # include <string.h>
 # include <stdio.h>
 
+# define WIN_WIDTH 1024
+# define WIN_HEIGHT 768
 # define NORTH "NO"
 # define SOUTH "SO"
 # define WEST "WE"
@@ -82,6 +84,16 @@ typedef struct s_textures
 	t_img	ea; 
 }	t_textures;
 
+typedef struct s_keys
+{
+	int	w;
+	int	a;
+	int	s;
+	int	d;
+	int	left;
+	int	right;
+}	t_keys;
+
 typedef struct s_game_info
 {
 	double	x;
@@ -103,6 +115,7 @@ typedef struct s_game
 
 	t_map		map;
 	t_game_info	player;
+	t_keys		keys;
 
 	char		*name_window;
 	char		*name_map;
@@ -121,26 +134,17 @@ typedef struct s_game_instance
 // PARSE.C
 
 int		ft_parse_map(char *map, t_map_sett *map_sett);
+char	**resize_map(char **old_map, int old_size, char *new_line);
 
 // PARSE_UTILS.C
 
 int		ft_fill_textures(char *line, t_map_sett *map_sett);
-char	*ft_add_text(char *line, t_map_sett *map_sett, char *texture, char *dir);
-char	*ft_check_line(char *line);
 
 //parse_utils2.c
 
-int		ft_isnumeric(char *str);
-void	ft_free_strarr(char **arr);
-int		ft_strarr_len(char **arr);
 int		*ft_take_nums(char *line);
 
-
 //parse_map1.c
-char	*ft_find_map_start(int fd);
-char	**ft_add_line(char **map, int i, char *line);
-char	**ft_read_map(int fd, char *line);
-int		ft_validate_map(t_map_sett *map_sett);
 int		ft_check_map(int fd, t_map_sett *map_sett);
 
 //parse_map2.c
@@ -151,8 +155,12 @@ int		ft_check_pos(char **map, int col, int row);
 
 // STRUCT_INIT.C
 
-void	ft_mapstr_init(t_game_instance *game);
 void	ft_sett_init(t_map_sett *map_sett);
+void	ft_mapstr_init(t_game_instance *game);
+void	ft_copy_map(t_game_instance *game_init, t_map_sett *map_sett);
+void	ft_addcf(t_game_instance *game_init, t_map_sett *map_sett);
+void	ft_load_text(t_game_instance *game_init, t_map_sett *map_sett);
+void	ft_sett_addr(t_game_instance *game_init, t_map_sett *map_sett);
 
 // ERROR_MESSAGE.C
 
@@ -161,5 +169,15 @@ int	ft_print_error(int err_code);
 // CLEANERS.C
 
 void	clean_exit(t_map_sett *map_sett, int err_cod);
+void	free_matrix(char **matrix);
+void	ft_general_clean(int err_cod);
 
+// EXECUTION.C
+void	ft_start_game(t_game_instance *game);
+
+// CALLBACKS.C
+
+int	ft_key_press(int keycode, t_game_instance *game);
+int	ft_key_release(int keycode, t_game_instance *game);
+int	ft_close_win(int keycode, t_game_instance *game);
 #endif

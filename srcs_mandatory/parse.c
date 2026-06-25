@@ -54,7 +54,7 @@ static int	ft_check_form(int fd, t_map_sett *map_sett)
 	return (0);
 }
 
-static char	**resize_map(char **old_map, int old_size, char *new_line)
+char	**resize_map(char **old_map, int old_size, char *new_line)
 {
 	int		i;
 	char	**new_map;

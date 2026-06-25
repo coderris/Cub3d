@@ -12,7 +12,7 @@
 
 #include "../include/cub3d.h"
 
-int	ft_isnumeric(char *str)
+static int	ft_isnumeric(char *str)
 {
 	int	i;
 
@@ -32,7 +32,7 @@ int	ft_isnumeric(char *str)
 	return (1);
 }
 
-void	ft_free_strarr(char **arr)
+static void	ft_free_strarr(char **arr)
 {
 	int	i;
 
@@ -44,7 +44,7 @@ void	ft_free_strarr(char **arr)
 	free(arr);
 }
 
-int	ft_strarr_len(char **arr)
+static int	ft_strarr_len(char **arr)
 {
 	int	i;
 
