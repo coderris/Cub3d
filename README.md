@@ -1,4 +1,4 @@
-*This project has been created as part of the 42 curriculum by [mamarin-](https://profile-v3.intra.42.fr/users/mamarin-), [lanton-m](https://profile-v3.intra.42.fr/users/lanton-m).*
+*This project has been created as part of the 42 curriculum by [najlghar](https://profile-v3.intra.42.fr/users/najlghar), [lanton-m](https://profile-v3.intra.42.fr/users/lanton-m).*
 
 # Cub3D
 
