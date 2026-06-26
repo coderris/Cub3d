@@ -30,5 +30,5 @@ int	ft_print_error(int err_code)
 		printf("Error:\nLoading textures\n");
 	else
 		printf("Error:\nOther error\n");
-	return (0);
+	exit(err_code);
 }

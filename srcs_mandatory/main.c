@@ -31,7 +31,7 @@ int	main(int argc, char **argv)
 	t_game_instance	*game_init;
 
 	if (argc != 2)
-		return (printf("Usage: ./cub3d *.cub\n"), 1);
+		return (ft_print_error(1), 1);
 	map_sett = malloc(sizeof(t_map_sett));
 	if (!map_sett)
 		return (ft_print_error(5), 1);

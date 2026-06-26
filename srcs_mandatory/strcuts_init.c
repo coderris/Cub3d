@@ -6,7 +6,7 @@
 /*   By: lanton-m <lanton-m@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/10 11:27:32 by lanton-m          #+#    #+#             */
-/*   Updated: 2026/06/24 22:31:01 by lanton-m         ###   ########.fr       */
+/*   Updated: 2026/06/26 21:28:46 by lanton-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,9 @@ void	ft_mapstr_init(t_game_instance *game)
 	game->win_ptr = NULL;
 	game->screen.img = NULL;
 	game->screen.addr = NULL;
+	game->map_data.map.grid = NULL;
+	game->map_data.player.time = ft_get_time();
+	game->map_data.player.old_time = game->map_data.player.time;
 	game->screen.bpp = 0;
 	game->screen.line_len = 0;
 	game->screen.endian = 0;
@@ -84,7 +87,7 @@ void	ft_copy_map(t_game_instance *game_init, t_map_sett *map_sett)
 
 	game_init->map_data.map.grid = malloc(sizeof(char *) * (height + 1));
 	if (!game_init->map_data.map.grid)
-		ft_general_clean(5);
+		ft_general_clean(game_init, 5);
 
 	i = 0;
 	while (i < height)
@@ -176,7 +179,7 @@ void	ft_load_text(t_game_instance *game_init, t_map_sett *map_sett)
 		&game_init->map_data.textures.ea.height);
 	if (!game_init->map_data.textures.ea.img || !game_init->map_data.textures.ea.img
 		|| !game_init->map_data.textures.ea.img || !game_init->map_data.textures.ea.img)
-		ft_general_clean(7);
+		ft_general_clean(game_init, 7);
 }
 
 void	ft_sett_addr(t_game_instance *game_init, t_map_sett *map_sett)
@@ -203,5 +206,5 @@ void	ft_sett_addr(t_game_instance *game_init, t_map_sett *map_sett)
         &game_init->map_data.textures.ea.endian);
 	if (!game_init->map_data.textures.ea.img || !game_init->map_data.textures.ea.img
 		|| !game_init->map_data.textures.ea.img || !game_init->map_data.textures.ea.img)
-		ft_general_clean(7);
+		ft_general_clean(game_init, 7);
 }

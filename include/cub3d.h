@@ -16,6 +16,7 @@
 # include "../libs/libft/includes/libft.h"
 # include "../libs/mlx/mlx.h"
 # include <fcntl.h>
+# include <sys/time.h>
 # include <string.h>
 # include <stdio.h>
 
@@ -39,6 +40,9 @@
 # define DOWN 65364
 # define D 100
 # define RIGHT 65363
+
+# define K_m 3.00
+# define K_r 2.00
 
 typedef struct s_map
 {
@@ -129,29 +133,54 @@ typedef struct s_game_instance
 	t_game		map_data;
 }	t_game_instance;
 
+//ACTIONS.C
 
+void	ft_handle_movement(t_game_instance *game, double delta);
+void    ft_move(t_game_instance *game, double delta, double dx, double dy);
 
-// PARSE.C
+//CALLBACKS.C
 
-int		ft_parse_map(char *map, t_map_sett *map_sett);
-char	**resize_map(char **old_map, int old_size, char *new_line);
+int	ft_key_press(int keycode, t_game_instance *game);
+int ft_key_release(int keycode, t_game_instance *game);
+int	ft_close_win(int keycode, t_game_instance *game);
+
+// CLEANERS.C
+
+void	clean_exit(t_map_sett *map_sett, int err_cod);
+void	free_matrix(char **matrix);
+void	ft_general_clean(t_game_instance *game, int err_cod);
+
+// ERROR_MESSAGE.C
+
+int	ft_print_error(int err_code);
+
+// EXECUTION.C
+void		ft_start_game(t_game_instance *game);
+double		ft_get_time(void);
+
+//PARSE_MAP1.C
+
+int		ft_check_map(int fd, t_map_sett *map_sett);
+
+//PARSE_MAP2.C
+
+int		ft_check_player(t_map_sett *map_sett);
+int		ft_check_invalid_char(t_map_sett *map_sett);
+int		ft_check_ext(char *map);
+int		ft_check_pos(char **map, int col, int row);
 
 // PARSE_UTILS.C
 
 int		ft_fill_textures(char *line, t_map_sett *map_sett);
 
-//parse_utils2.c
+//PARSE_UTILS2.C
 
 int		*ft_take_nums(char *line);
 
-//parse_map1.c
-int		ft_check_map(int fd, t_map_sett *map_sett);
+// PARSE.C
 
-//parse_map2.c
-int		ft_check_player(t_map_sett *map_sett);
-int		ft_check_invalid_char(t_map_sett *map_sett);
-int		ft_check_ext(char *map);
-int		ft_check_pos(char **map, int col, int row);
+int		ft_parse_map(char *map, t_map_sett *map_sett);
+char	**resize_map(char **old_map, int old_size, char *new_line);
 
 // STRUCT_INIT.C
 
@@ -162,22 +191,4 @@ void	ft_addcf(t_game_instance *game_init, t_map_sett *map_sett);
 void	ft_load_text(t_game_instance *game_init, t_map_sett *map_sett);
 void	ft_sett_addr(t_game_instance *game_init, t_map_sett *map_sett);
 
-// ERROR_MESSAGE.C
-
-int	ft_print_error(int err_code);
-
-// CLEANERS.C
-
-void	clean_exit(t_map_sett *map_sett, int err_cod);
-void	free_matrix(char **matrix);
-void	ft_general_clean(int err_cod);
-
-// EXECUTION.C
-void	ft_start_game(t_game_instance *game);
-
-// CALLBACKS.C
-
-int	ft_key_press(int keycode, t_game_instance *game);
-int	ft_key_release(int keycode, t_game_instance *game);
-int	ft_close_win(int keycode, t_game_instance *game);
 #endif

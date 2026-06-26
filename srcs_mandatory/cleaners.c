@@ -30,7 +30,6 @@ void	clean_exit(t_map_sett *map_sett, int err_cod)
 	int	i;
 
 	i = 0;
-
 	if (map_sett->n_text)
 		free(map_sett->n_text);
 	if (map_sett->s_text)
@@ -47,10 +46,30 @@ void	clean_exit(t_map_sett *map_sett, int err_cod)
 		free_matrix(map_sett->map);
 	free(map_sett);
 	ft_print_error(err_cod);
-	exit(err_cod);
 }
 
-void	ft_general_clean(int err_cod)
+
+void	ft_general_clean(t_game_instance *game, int err_cod)
 {
-	if ()
+	if (!game)
+		return ;
+	if (game->mlx_ptr)
+	{
+		if (game->screen.img)
+			mlx_destroy_image(game->mlx_ptr, game->screen.img);
+		if (game->map_data.textures.no.img)
+			mlx_destroy_image(game->mlx_ptr, game->map_data.textures.no.img);
+		if (game->map_data.textures.so.img)
+			mlx_destroy_image(game->mlx_ptr, game->map_data.textures.so.img);
+		if (game->map_data.textures.we.img)
+			mlx_destroy_image(game->mlx_ptr, game->map_data.textures.we.img);
+		if (game->map_data.textures.ea.img)
+			mlx_destroy_image(game->mlx_ptr, game->map_data.textures.ea.img);
+		if (game->win_ptr)
+			mlx_destroy_window(game->mlx_ptr, game->win_ptr);
+		mlx_destroy_display(game->mlx_ptr);
+		free(game->mlx_ptr);
+	}
+	free_matrix(game->map_data.map.grid);
+	ft_print_error(err_cod);
 }
