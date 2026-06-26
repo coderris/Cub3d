@@ -6,7 +6,7 @@
 /*   By: lanton-m <lanton-m@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/24 22:23:43 by lanton-m          #+#    #+#             */
-/*   Updated: 2026/06/26 22:17:15 by lanton-m         ###   ########.fr       */
+/*   Updated: 2026/06/26 23:12:48 by lanton-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,29 @@ void    ft_handle_movement(t_game_instance *game, double delta)
         ft_move(game, delta, (-1)*game->map_data.player.dir_x, (-1)*game->map_data.player.dir_y);
     if (game->map_data.keys.d)
         ft_move(game, delta, game->map_data.player.plane_x, game->map_data.player.plane_y);
-        
+    if (game->map_data.keys.left)
+        ft_rotate(game, -delta);
+    if (game->map_data.keys.right)
+        ft_rotate(game, delta);
+}
+
+void    ft_rotate(t_game_instance *game, double delta)
+{
+    double  dirx_hldr;
+    double  diry_hldr;
+    double  plnx_hldr;
+    double  plny_hldr;
+    double  theta;
+
+    theta = delta * K_r;
+    dirx_hldr = game->map_data.player.dir_x;
+    diry_hldr = game->map_data.player.dir_y;
+    plnx_hldr = game->map_data.player.plane_x;
+    plny_hldr = game->map_data.player.plane_y;
+    game->map_data.player.dir_x = cos(theta)*dirx_hldr - sin(theta)*diry_hldr;
+    game->map_data.player.dir_y = sin(theta)*dirx_hldr + cos(theta)*diry_hldr;
+    game->map_data.player.plane_x = cos(theta)*plnx_hldr - sin(theta)*plny_hldr;
+    game->map_data.player.plane_y = sin(theta)*plnx_hldr + cos(theta)*plny_hldr;
 }
 
 void    ft_move(t_game_instance *game, double delta, double dx, double dy)
@@ -40,5 +62,4 @@ void    ft_move(t_game_instance *game, double delta, double dx, double dy)
     if (game->map_data.map.grid[(int)new_y][(int)game->map_data.player.x] &&
         game->map_data.map.grid[(int)new_y][(int)game->map_data.player.x] != '1')
         game->map_data.player.y = new_y;
-    
 }

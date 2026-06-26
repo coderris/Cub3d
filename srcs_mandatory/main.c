@@ -44,7 +44,6 @@ int	main(int argc, char **argv)
 	ft_mapstr_init(game_init);
 	ft_load_game_data(game_init, map_sett);
 	ft_start_game(game_init);
-	
 	clean_exit(map_sett, 0);
 	return (0);
 }

@@ -19,6 +19,7 @@
 # include <sys/time.h>
 # include <string.h>
 # include <stdio.h>
+# include <math.h>
 
 # define WIN_WIDTH 1024
 # define WIN_HEIGHT 768
