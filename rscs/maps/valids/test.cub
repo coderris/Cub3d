@@ -1,0 +1,11 @@
+F 20,  235,  2
+C 5,  221,  231
+NO ./rscs/textures/wall.png
+SO ./rscs/textures/wall.png
+WE ./rscs/textures/wall.png
+EA ./rscs/textures/wall.png
+
+11111111111111111111111111111111111111
+1N00000011
+10000111111111111111111111111
+111111

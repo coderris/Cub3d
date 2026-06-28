@@ -6,7 +6,7 @@
 /*   By: najlghar <najlghar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/09 01:02:44 by lanton-m          #+#    #+#             */
-/*   Updated: 2026/05/09 14:28:34 by najlghar         ###   ########.fr       */
+/*   Updated: 2026/05/29 16:08:52 by najlghar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,14 @@ int	ft_isnumeric(char *str)
 	int	i;
 
 	i = 0;
-	if (!str || !str[0])
+	if (!str)
 		return (0);
-	if (str[i] == '+' || str[i] == '-')
+	while (str[i] == ' ')
 		i++;
-	if (!str[i])
-		return (0);
 	while (str[i])
 	{
+		if ((str[i] == '\n' && i != 0) || str[i] == '\0')
+			break ;
 		if (str[i] < '0' || str[i] > '9')
 			return (0);
 		i++;
@@ -55,12 +55,28 @@ int	ft_strarr_len(char **arr)
 		i++;
 	return (i);
 }
-//larga función
+
+static int	*ft_take_nums_aux(char **nums_c, int *nums)
+{
+	int	i;
+
+	i = 0;
+	while (nums_c[i])
+	{
+		if (!ft_isnumeric(nums_c[i]))
+			return (ft_free_strarr(nums_c), free(nums), NULL);
+		nums[i] = ft_atoi(nums_c[i]);
+		if (nums[i] < 0 || nums[i] > 255)
+			return (ft_free_strarr(nums_c), free(nums), NULL);
+		i++;
+	}
+	return (nums);
+}
+
 int	*ft_take_nums(char *line)
 {
 	char	**nums_c;
 	int		*nums;
-	int		i;
 
 	nums = malloc(sizeof(int) * 3);
 	if (!nums)
@@ -74,16 +90,9 @@ int	*ft_take_nums(char *line)
 	nums_c = ft_split(line, ',');
 	if (!nums_c || ft_strarr_len(nums_c) != 3)
 		return (ft_free_strarr(nums_c), free(nums), NULL);
-	i = 0;
-	while (nums_c[i])
-	{
-		if (!ft_isnumeric(nums_c[i]))
-			return (ft_free_strarr(nums_c), free(nums), NULL);
-		nums[i] = ft_atoi(nums_c[i]);
-		if (nums[i] < 0 || nums[i] > 255)
-			return (ft_free_strarr(nums_c), free(nums), NULL);
-		i++;
-	}
+	nums = ft_take_nums_aux(nums_c, nums);
+	if (nums == NULL)
+		return (NULL);
 	ft_free_strarr(nums_c);
 	return (nums);
 }

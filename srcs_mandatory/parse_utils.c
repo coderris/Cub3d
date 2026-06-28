@@ -12,13 +12,10 @@
 
 #include "../include/cub3d.h"
 
-static int	*ft_add_colors(char *line, t_map_sett *map_sett, int *rgb, char *room)
+static int	*ft_add_colors(char *line, t_map_sett *map_sett)
 {
 	int	*numbers;
 
-	(void)room;
-	if (!rgb)
-		clean_exit(map_sett, 4);
 	numbers = ft_take_nums(line + 1);
 	if (!numbers)
 		clean_exit(map_sett, 4);
@@ -28,6 +25,7 @@ static int	*ft_add_colors(char *line, t_map_sett *map_sett, int *rgb, char *room
 int	ft_fill_textures(char *line, t_map_sett *map_sett)
 {
 	char	*path;
+
 
 	(void)path;
 	if (!ft_strncmp(line, NORTH, 2))
@@ -43,11 +41,12 @@ int	ft_fill_textures(char *line, t_map_sett *map_sett)
 		return (map_sett->e_text = ft_add_text(line, map_sett,
 				map_sett->e_text, EAST), 1);
 	if (!ft_strncmp(line, CEILING, 1))
-		return (map_sett->ceiling = ft_add_colors(line, map_sett,
-				map_sett->ceiling, CEILING), 1);
+		return (map_sett->ceiling = ft_add_colors(line, map_sett), 1);
 	if (!ft_strncmp(line, FLOOR, 1))
-		return (map_sett->floor = ft_add_colors(line, map_sett,
-				map_sett->floor, FLOOR), 1);
+	{
+		map_sett->floor = ft_add_colors(line, map_sett);
+		return (1);
+	}
 	return (0);
 }
 

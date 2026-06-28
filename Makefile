@@ -6,7 +6,7 @@
 #    By: najlghar <najlghar@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/04/05 20:20:23 by lanton-m          #+#    #+#              #
-#    Updated: 2026/05/06 17:32:37 by najlghar         ###   ########.fr        #
+#    Updated: 2026/05/14 20:21:27 by najlghar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,9 +38,7 @@ LIBFT = $(LIBFT_PATH)libft.a
 MLX_PATH = $(LIBS_PATH)mlx/
 
 # Source files
-SRCS_FILES = main.c error_message.c parse.c parse_utils.c cleaners.c
-
-
+SRCS_FILES = main.c error_message.c parse.c parse_utils.c cleaners.c parse_map1.c parse_map2.c parse_utils2.c check_map_close.c
 # Object files
 OBJS_FILES = $(patsubst %.c, $(OBJS_PATH)%.o, $(SRCS_FILES))
 OBJECTS = $(addprefix $(OBJS_PATH), $(OBJS_FILES))

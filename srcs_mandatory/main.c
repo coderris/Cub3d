@@ -33,12 +33,17 @@ int	main(int argc, char **argv)
 	if (!map_sett)
 		return (ft_print_error(5), 1);
 	ft_sett_init(map_sett);
-
 	if (ft_parse_map(argv[1], map_sett))
-	{
-		clean_exit(map_sett, 0);
-		return (1);
-	}
+		clean_exit(map_sett, 1);
+
+	printf("%s", map_sett->n_text);
+	printf("%s", map_sett->e_text);
+	printf("%s", map_sett->s_text);
+	printf("%s", map_sett->w_text);
+	printf("%i,%i,%i\n",map_sett->floor[0],map_sett->floor[1],map_sett->floor[2]);
+	printf("%i,%i,%i\n",map_sett->ceiling[0],map_sett->ceiling[1],map_sett->ceiling[2]);
+	for(int i=0; map_sett->map[i]; i++)
+		printf("%s", map_sett->map[i]);
 	clean_exit(map_sett, 0);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: najlghar <najlghar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/05 21:45:57 by lanton-m          #+#    #+#             */
-/*   Updated: 2026/05/09 14:20:48 by najlghar         ###   ########.fr       */
+/*   Updated: 2026/05/17 17:57:39 by najlghar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,9 +57,7 @@ int	ft_check_invalid_char(t_map_sett *map_sett)
 		while (map[i][j] != '\n' && map[i][j] != '\0')
 		{
 			if (!ft_strchr("10 NSEW", map[i][j]))
-			{
 				return (1);
-			}
 			j++;
 		}
 		i++;

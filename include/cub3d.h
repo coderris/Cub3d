@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CUB
-#define CUB
+#ifndef CUB3D_H
+# define CUB3D_H
 
 # include "../libs/libft/includes/libft.h"
 # include "../libs/mlx/mlx.h"
@@ -68,7 +68,7 @@ typedef struct s_textures
 	char	*no;
 	char	*so;
 	char	*we;
-	char	*ea; 
+	char	*ea;
 }	t_textures;
 
 typedef struct s_game_info
@@ -109,11 +109,11 @@ typedef struct s_game
 }	t_game;
 
 
-
 // PARSE.C
 
 int		ft_parse_map(char *map, t_map_sett *map_sett);
 int		ft_check_closed(t_map_sett *map_sett);
+char	**resize_map(char **old_map, int old_size, char *new_line);
 // PARSE_UTILS.C
 
 int		ft_fill_textures(char *line, t_map_sett *map_sett);
@@ -135,16 +135,18 @@ char	**ft_read_map(int fd, char *line);
 int		ft_validate_map(t_map_sett *map_sett);
 int		ft_check_map(int fd, t_map_sett *map_sett);
 
+void	free_matrix(char **matrix);
 //parse_map2.c
 int		ft_check_player(t_map_sett *map_sett);
 int		ft_check_invalid_char(t_map_sett *map_sett);
 int		ft_check_ext(char *map);
 int		ft_check_pos(char **map, int col, int row);
 
+int		ft_check_closed(t_map_sett *map_sett);
 
 // ERROR_MESSAGE.C
 
-int	ft_print_error(int err_code);
+int		ft_print_error(int err_code);
 
 // CLEANERS.C
 
