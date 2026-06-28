@@ -38,7 +38,9 @@ LIBFT = $(LIBFT_PATH)libft.a
 MLX_PATH = $(LIBS_PATH)mlx/
 
 # Source files
-SRCS_FILES = main.c error_message.c parse.c parse_utils.c cleaners.c
+SRCS_FILES = main.c actions.c callbacks.c cleaners.c error_message.c execution.c \
+			parse_map1.c parse_map2.c parse_utils.c parse_utils2.c parse.c \
+			render.c structs_init.c time.c
 
 
 # Object files

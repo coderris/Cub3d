@@ -36,7 +36,7 @@ int	main(int argc, char **argv)
 	if (!map_sett)
 		return (ft_print_error(5), 1);
 	ft_sett_init(map_sett);
-	if (ft_parse_map(argv[1], &map_sett))
+	if (ft_parse_map(argv[1], map_sett))
 		return (clean_exit(map_sett, 0), 1);
 	game_init = malloc(sizeof(t_game_instance));
 	if (!game_init)

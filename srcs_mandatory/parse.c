@@ -33,6 +33,7 @@ static int	ft_check_form(int fd, t_map_sett *map_sett)
 	int		filled;
 
 	count = 0;
+	filled = 0;
 	while (count < 6)
 	{
 		line = get_next_line(fd);
@@ -45,12 +46,12 @@ static int	ft_check_form(int fd, t_map_sett *map_sett)
 		}
 		filled = ft_fill_textures(line, map_sett);
 		free(line);
-		if (!filled)
-			return (1);
+		if (filled == 0)
+			return (printf("aquí"), 1);
 		count++;
 	}
 	if (count < 6 || ft_check_data(map_sett))
-		return (1);
+		return (printf("estoy dando error aquí"), 1);
 	return (0);
 }
 
@@ -73,16 +74,12 @@ char	**resize_map(char **old_map, int old_size, char *new_line)
 	free(old_map);
 	return (new_map);
 }
-//larga función
-static int	ft_check_closed(t_map_sett *map_sett)
+
+static int	ft_check_closed_aux(char **map, int i)
 {
-	int		i;
 	int		j;
 	int		pos;
-	char	**map;
 
-	map = map_sett->map;
-	i = 0;
 	while (map[i] != NULL)
 	{
 		j = 0;
@@ -106,6 +103,19 @@ static int	ft_check_closed(t_map_sett *map_sett)
 	return (0);
 }
 
+int	ft_check_closed(t_map_sett *map_sett)
+{
+	int		i;
+	char	**map;
+
+	i = 0;
+	map = map_sett->map;
+	if (ft_check_closed_aux(map, i) == 1)
+		return (1);
+	else
+		return (0);
+}
+
 int	ft_parse_map(char *map, t_map_sett *map_sett)
 {
 	int	fd;
@@ -115,17 +125,15 @@ int	ft_parse_map(char *map, t_map_sett *map_sett)
 	fd = open(map, O_RDONLY);
 	if (fd < 0)
 		return (ft_print_error(2), 1);
-
 	if (ft_check_form(fd, map_sett))
 	{
 		close(fd);
-		return (ft_print_error(4), 1);
+		ft_print_error(4);
 	}
-
 	if (ft_check_map(fd, map_sett))
 	{
 		close(fd);
-		return (ft_print_error(3), 1);
+		ft_print_error(3);
 	}
 	close(fd);
 	return (0);
