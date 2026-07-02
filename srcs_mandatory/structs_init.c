@@ -6,7 +6,7 @@
 /*   By: lanton-m <lanton-m@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/10 11:27:32 by lanton-m          #+#    #+#             */
-/*   Updated: 2026/06/28 19:57:50 by lanton-m         ###   ########.fr       */
+/*   Updated: 2026/07/02 22:33:24 by lanton-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,14 @@ void	ft_mapstr_init(t_game_instance *game)
 	game->win_ptr = NULL;
 	game->screen.img = NULL;
 	game->screen.addr = NULL;
+	game->map_data.textures.no.img = NULL;
+	game->map_data.textures.so.img = NULL;
+	game->map_data.textures.we.img = NULL;
+	game->map_data.textures.ea.img = NULL;
+	game->map_data.textures.no.addr = NULL;
+	game->map_data.textures.so.addr = NULL;
+	game->map_data.textures.we.addr = NULL;
+	game->map_data.textures.ea.addr = NULL;
 	game->map_data.map.grid = NULL;
 	game->map_data.player.time = ft_get_time();
 	game->map_data.player.old_time = game->map_data.player.time;
@@ -102,7 +110,7 @@ void	ft_copy_map(t_game_instance *game_init, t_map_sett *map_sett)
 					game_init->map_data.map.grid[i][j] = '1';
 				else
 				{
-				if (ft_check_player(map_sett->map[i][j]))
+				if (ft_strchr("NSEW", map_sett->map[i][j]))
 					{
 						game_init->map_data.player.map_x = j;
 						game_init->map_data.player.map_y = i;
@@ -167,20 +175,33 @@ void	ft_addcf(t_game_instance *game_init, t_map_sett *map_sett)
 
 void	ft_load_text(t_game_instance *game_init, t_map_sett *map_sett)
 {
+	if (!map_sett->n_text || !map_sett->s_text
+		|| !map_sett->w_text || !map_sett->e_text)
+		ft_general_clean(game_init, 7);
+	if (access(map_sett->n_text, R_OK) != 0 || access(map_sett->s_text, R_OK) != 0
+		|| access(map_sett->w_text, R_OK) != 0 || access(map_sett->e_text, R_OK) != 0)
+	{
+		printf("Error:\nInvalid texture path or no read permissions\n");
+		printf("NO: %s\n", map_sett->n_text);
+		printf("SO: %s\n", map_sett->s_text);
+		printf("WE: %s\n", map_sett->w_text);
+		printf("EA: %s\n", map_sett->e_text);
+		ft_general_clean(game_init, 7);
+	}
 	game_init->map_data.textures.no.img = mlx_xpm_file_to_image(game_init->mlx_ptr, map_sett->n_text,
 		&game_init->map_data.textures.no.width,
 		&game_init->map_data.textures.no.height);
-	game_init->map_data.textures.so.img = mlx_xpm_file_to_image(game_init->mlx_ptr, map_sett->n_text,
+	game_init->map_data.textures.so.img = mlx_xpm_file_to_image(game_init->mlx_ptr, map_sett->s_text,
 		&game_init->map_data.textures.so.width,
 		&game_init->map_data.textures.so.height);
-	game_init->map_data.textures.we.img = mlx_xpm_file_to_image(game_init->mlx_ptr, map_sett->n_text,
+	game_init->map_data.textures.we.img = mlx_xpm_file_to_image(game_init->mlx_ptr, map_sett->w_text,
 		&game_init->map_data.textures.we.width,
 		&game_init->map_data.textures.we.height);
-	game_init->map_data.textures.ea.img = mlx_xpm_file_to_image(game_init->mlx_ptr, map_sett->n_text,
+	game_init->map_data.textures.ea.img = mlx_xpm_file_to_image(game_init->mlx_ptr, map_sett->e_text,
 		&game_init->map_data.textures.ea.width,
 		&game_init->map_data.textures.ea.height);
-	if (!game_init->map_data.textures.ea.img || !game_init->map_data.textures.ea.img
-		|| !game_init->map_data.textures.ea.img || !game_init->map_data.textures.ea.img)
+	if (!game_init->map_data.textures.no.img || !game_init->map_data.textures.so.img
+		|| !game_init->map_data.textures.we.img || !game_init->map_data.textures.ea.img)
 		ft_general_clean(game_init, 7);
 }
 
@@ -206,8 +227,8 @@ void	ft_sett_addr(t_game_instance *game_init, t_map_sett *map_sett)
 		&game_init->map_data.textures.ea.bpp,
         &game_init->map_data.textures.ea.line_len,
         &game_init->map_data.textures.ea.endian);
-	if (!game_init->map_data.textures.ea.img || !game_init->map_data.textures.ea.img
-		|| !game_init->map_data.textures.ea.img || !game_init->map_data.textures.ea.img)
+	if (!game_init->map_data.textures.no.addr || !game_init->map_data.textures.so.addr
+		|| !game_init->map_data.textures.we.addr || !game_init->map_data.textures.ea.addr)
 		ft_general_clean(game_init, 7);
 }
 

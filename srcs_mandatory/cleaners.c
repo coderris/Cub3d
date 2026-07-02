@@ -45,6 +45,8 @@ void	clean_exit(t_map_sett *map_sett, int err_cod)
 	if (map_sett->map)
 		free_matrix(map_sett->map);
 	free(map_sett);
+	if (err_cod == 0)
+		return ;
 	ft_print_error(err_cod);
 }
 

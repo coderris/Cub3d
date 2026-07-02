@@ -33,7 +33,6 @@ static int	ft_check_form(int fd, t_map_sett *map_sett)
 	int		filled;
 
 	count = 0;
-	filled = 0;
 	while (count < 6)
 	{
 		line = get_next_line(fd);
@@ -47,11 +46,11 @@ static int	ft_check_form(int fd, t_map_sett *map_sett)
 		filled = ft_fill_textures(line, map_sett);
 		free(line);
 		if (filled == 0)
-			return (printf("aquí"), 1);
+			return (1);
 		count++;
 	}
 	if (count < 6 || ft_check_data(map_sett))
-		return (printf("estoy dando error aquí"), 1);
+		return (1);
 	return (0);
 }
 
@@ -80,19 +79,20 @@ static int	ft_check_closed_aux(char **map, int i)
 	int		j;
 	int		pos;
 
+
 	while (map[i] != NULL)
 	{
 		j = 0;
 		while (map[i][j] == ' ')
 			j++;
-		if (map[i][j] != '1' && map[i][j] != '\n' && map[i][j] != '\0')
+		if (map[i][j] != '1' && map[i][j] != '\0' && ft_special_character(map[i][j]))
 			return (1);
 		while (map[i][j] != '\n' && map[i][j] != '\0')
 		{
-			if (!ft_strchr("10 NSEW", map[i][j]))
+			if (!ft_strchr("10 NSEW", map[i][j]) && ft_special_character(map[i][j]))
 				return (1);
 			pos = 0;
-			if (ft_strchr("0NSEW", map[i][j]))
+			if (ft_strchr("0NSEW", map[i][j]) && ft_special_character(map[i][j]))
 				pos = ft_check_pos(map, j, i);
 			if (pos)
 				return (1);
@@ -105,12 +105,7 @@ static int	ft_check_closed_aux(char **map, int i)
 
 int	ft_check_closed(t_map_sett *map_sett)
 {
-	int		i;
-	char	**map;
-
-	i = 0;
-	map = map_sett->map;
-	if (ft_check_closed_aux(map, i) == 1)
+	if (ft_check_closed_aux(map_sett->map, 0) == 1)
 		return (1);
 	else
 		return (0);

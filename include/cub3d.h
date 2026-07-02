@@ -21,8 +21,8 @@
 # include <stdio.h>
 # include <math.h>
 
-# define WIN_WIDTH 1024
-# define WIN_HEIGHT 768
+# define WIN_WIDTH 800
+# define WIN_HEIGHT 600
 # define NORTH "NO"
 # define SOUTH "SO"
 # define WEST "WE"
@@ -86,7 +86,7 @@ typedef struct s_textures
 	t_img	no;
 	t_img	so;
 	t_img	we;
-	t_img	ea; 
+	t_img	ea;
 }	t_textures;
 
 typedef struct s_keys
@@ -101,6 +101,8 @@ typedef struct s_keys
 
 typedef struct s_game_info
 {
+	int		map_x;
+	int		map_y;
 	double	x;
 	double	y;
 	double	dir_x;
@@ -126,18 +128,45 @@ typedef struct s_game
 	char		*name_map;
 }	t_game;
 
+typedef struct s_rays
+{
+	int		side;
+	int		step_x;
+	int		step_y;
+	double	dist;
+	double	ray_x_dir;
+	double	ray_y_dir;
+}	t_rays;
+
+typedef struct s_dda
+{
+	int		x;
+	int		y;
+	int		stepX;
+	int		stepY;
+	double	ray_x_dir;
+	double	ray_y_dir;
+	double	delt_dist_X;
+	double	delt_dist_Y;
+	double	sid_dist_X;
+	double	sid_dist_Y;
+	int		hit;
+	int		side;
+}	t_dda;
+
 typedef struct s_game_instance
 {
 	void		*mlx_ptr;
 	void		*win_ptr;
 	t_img		screen;
 	t_game		map_data;
+	t_dda		dda;
+	t_rays		rays[WIN_WIDTH];
 }	t_game_instance;
 
 //ACTIONS.C
 
 void	ft_handle_movement(t_game_instance *game, double delta);
-void    ft_move(t_game_instance *game, double delta, double dx, double dy);
 
 //CALLBACKS.C
 
@@ -157,7 +186,6 @@ int	ft_print_error(int err_code);
 
 // EXECUTION.C
 void		ft_start_game(t_game_instance *game);
-double		ft_get_time(void);
 
 //PARSE_MAP1.C
 
@@ -169,10 +197,13 @@ int		ft_check_player(t_map_sett *map_sett);
 int		ft_check_invalid_char(t_map_sett *map_sett);
 int		ft_check_ext(char *map);
 int		ft_check_pos(char **map, int col, int row);
+int		ft_special_character(char c);
 
 // PARSE_UTILS.C
 
 int		ft_fill_textures(char *line, t_map_sett *map_sett);
+char	*ft_add_text(char *line, t_map_sett *map_sett, char *texture, char *dir);
+char	*ft_check_line(char *line);
 
 //PARSE_UTILS2.C
 
@@ -182,6 +213,13 @@ int		*ft_take_nums(char *line);
 
 int		ft_parse_map(char *map, t_map_sett *map_sett);
 char	**resize_map(char **old_map, int old_size, char *new_line);
+int		ft_check_closed(t_map_sett *map_sett);
+
+// RENDER.C
+
+void	ft_my_pixel_put(t_img *img, int x, int y, int color);
+int		ft_my_pixel_get(t_img *img, int x, int y);
+void	ft_draw_frame(t_game_instance *game);
 
 // STRUCT_INIT.C
 
@@ -191,5 +229,13 @@ void	ft_copy_map(t_game_instance *game_init, t_map_sett *map_sett);
 void	ft_addcf(t_game_instance *game_init, t_map_sett *map_sett);
 void	ft_load_text(t_game_instance *game_init, t_map_sett *map_sett);
 void	ft_sett_addr(t_game_instance *game_init, t_map_sett *map_sett);
+int		ft_check_player_let(char c);
+void	ft_sett_dir(char dir, t_game_instance *game);
+void	ft_dda_init(t_game_instance *game);
+void	ft_set_rays(t_game_instance *game, int x);
+
+// TIME.C
+
+double	ft_get_time(void);
 
 #endif

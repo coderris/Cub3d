@@ -6,7 +6,7 @@
 /*   By: lanton-m <lanton-m@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/28 19:19:41 by lanton-m          #+#    #+#             */
-/*   Updated: 2026/06/28 19:20:32 by lanton-m         ###   ########.fr       */
+/*   Updated: 2026/07/02 22:51:02 by lanton-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,5 +17,5 @@ double   ft_get_time(void)
     struct timeval  tv;
 
     gettimeofday(&tv, NULL);
-    return (tv.tv_sec + tv.tv_usec/1000000);
+    return (tv.tv_sec + tv.tv_usec / 1000000.0);
 }

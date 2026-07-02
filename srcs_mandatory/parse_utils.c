@@ -24,10 +24,6 @@ static int	*ft_add_colors(char *line, t_map_sett *map_sett)
 
 int	ft_fill_textures(char *line, t_map_sett *map_sett)
 {
-	char	*path;
-
-
-	(void)path;
 	if (!ft_strncmp(line, NORTH, 2))
 		return (map_sett->n_text = ft_add_text(line, map_sett,
 				map_sett->n_text, NORTH), 1);
@@ -70,7 +66,15 @@ char	*ft_add_text(char *line, t_map_sett *map_sett, char *texture, char *dir)
 	clean_exit(map_sett, 4);
 	return (NULL);
 }
+static char	*ft_clean_path(char *old_path)
+{
+	char	*path;
 
+	if (!old_path)
+		return (NULL);
+	path = ft_strtrim(old_path, " \t\n\r");
+	return (path);
+}
 char	*ft_check_line(char *line)
 {
 	char	*path;
@@ -82,5 +86,5 @@ char	*ft_check_line(char *line)
 		line++;
 	if (*line && *line == '.')
 		path = line;
-	return (path);
+	return (ft_clean_path(path));
 }

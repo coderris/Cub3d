@@ -42,7 +42,16 @@ int	ft_check_player(t_map_sett *map_sett)
 		return (1);
 	return (0);
 }
-
+int	ft_special_character(char c)
+{
+	if (c == '\n')
+		return (0);
+	if (c == '\t' || c == '\r' || c == ' ')
+		return (0);
+	if (c == '\v' || c == '\b')
+		return (0);
+	return (1);
+}
 int	ft_check_invalid_char(t_map_sett *map_sett)
 {
 	int		i;
@@ -54,12 +63,10 @@ int	ft_check_invalid_char(t_map_sett *map_sett)
 	while (map[i] != NULL)
 	{
 		j = 0;
-		while (map[i][j] != '\n' && map[i][j] != '\0')
+		while (ft_special_character(map[i][j]))
 		{
 			if (!ft_strchr("10 NSEW", map[i][j]))
-			{
 				return (1);
-			}
 			j++;
 		}
 		i++;
