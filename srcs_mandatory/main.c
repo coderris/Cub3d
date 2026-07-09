@@ -12,33 +12,39 @@
 
 #include "../include/cub3d.h"
 
-static void	ft_sett_init(t_map_sett *map_sett)
+
+static void	ft_load_game_data(t_game_instance *game_init, t_map_sett *map_sett)
 {
-	map_sett->map = NULL;
-	map_sett->n_text = NULL;
-	map_sett->s_text = NULL;
-	map_sett->w_text = NULL;
-	map_sett->e_text = NULL;
-	map_sett->floor = NULL;
-	map_sett->ceiling = NULL;
+	game_init->mlx_ptr = mlx_init();
+	if (!game_init->mlx_ptr)
+		clean_exit(map_sett, 6);
+	ft_addcf(game_init, map_sett);
+	ft_load_text(game_init, map_sett);
+	ft_sett_addr(game_init, map_sett);
+	ft_copy_map(game_init, map_sett);
+
 }
 
 int	main(int argc, char **argv)
 {
-	t_map_sett *map_sett;
+	t_map_sett		*map_sett;
+	t_game_instance	*game_init;
 
 	if (argc != 2)
-		return (printf("Usage: ./cub3d *.cub\n"), 1);
+		return (ft_print_error(1), 1);
 	map_sett = malloc(sizeof(t_map_sett));
 	if (!map_sett)
 		return (ft_print_error(5), 1);
 	ft_sett_init(map_sett);
-
 	if (ft_parse_map(argv[1], map_sett))
-	{
-		clean_exit(map_sett, 0);
-		return (1);
-	}
+		return (clean_exit(map_sett, 0), 1);
+	game_init = malloc(sizeof(t_game_instance));
+	if (!game_init)
+		return (ft_print_error(5));
+	ft_mapstr_init(game_init);
+	ft_load_game_data(game_init, map_sett);
+	ft_start_game(game_init);
 	clean_exit(map_sett, 0);
 	return (0);
 }
+

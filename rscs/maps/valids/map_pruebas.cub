@@ -1,9 +1,9 @@
-F 20,235,5
-C 5,221,231
-NO ./rscs/textures/wall.png
-SO ./rscs/textures/wall.png
-WE ./rscs/textures/wall.png
-EA ./rscs/textures/wall.png
+F 120,102,71
+C 255,255,255
+NO ./rscs/textures/Nay_no.xpm
+SO ./rscs/textures/Empty_so.xpm
+WE ./rscs/textures/Luis_we.xpm
+EA ./rscs/textures/together_ea.xpm
 
 
 1111111111

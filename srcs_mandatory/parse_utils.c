@@ -12,13 +12,10 @@
 
 #include "../include/cub3d.h"
 
-static int	*ft_add_colors(char *line, t_map_sett *map_sett, int *rgb, char *room)
+static int	*ft_add_colors(char *line, t_map_sett *map_sett)
 {
 	int	*numbers;
 
-	(void)room;
-	if (!rgb)
-		clean_exit(map_sett, 4);
 	numbers = ft_take_nums(line + 1);
 	if (!numbers)
 		clean_exit(map_sett, 4);
@@ -27,9 +24,6 @@ static int	*ft_add_colors(char *line, t_map_sett *map_sett, int *rgb, char *room
 
 int	ft_fill_textures(char *line, t_map_sett *map_sett)
 {
-	char	*path;
-
-	(void)path;
 	if (!ft_strncmp(line, NORTH, 2))
 		return (map_sett->n_text = ft_add_text(line, map_sett,
 				map_sett->n_text, NORTH), 1);
@@ -43,11 +37,12 @@ int	ft_fill_textures(char *line, t_map_sett *map_sett)
 		return (map_sett->e_text = ft_add_text(line, map_sett,
 				map_sett->e_text, EAST), 1);
 	if (!ft_strncmp(line, CEILING, 1))
-		return (map_sett->ceiling = ft_add_colors(line, map_sett,
-				map_sett->ceiling, CEILING), 1);
+		return (map_sett->ceiling = ft_add_colors(line, map_sett), 1);
 	if (!ft_strncmp(line, FLOOR, 1))
-		return (map_sett->floor = ft_add_colors(line, map_sett,
-				map_sett->floor, FLOOR), 1);
+	{
+		map_sett->floor = ft_add_colors(line, map_sett);
+		return (1);
+	}
 	return (0);
 }
 
@@ -71,7 +66,15 @@ char	*ft_add_text(char *line, t_map_sett *map_sett, char *texture, char *dir)
 	clean_exit(map_sett, 4);
 	return (NULL);
 }
+static char	*ft_clean_path(char *old_path)
+{
+	char	*path;
 
+	if (!old_path)
+		return (NULL);
+	path = ft_strtrim(old_path, " \t\n\r");
+	return (path);
+}
 char	*ft_check_line(char *line)
 {
 	char	*path;
@@ -83,5 +86,5 @@ char	*ft_check_line(char *line)
 		line++;
 	if (*line && *line == '.')
 		path = line;
-	return (path);
+	return (ft_clean_path(path));
 }
