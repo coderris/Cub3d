@@ -28,6 +28,10 @@ int	ft_print_error(int err_code)
 		printf("Error:\nmlx error\n");
 	else if (err_code == 7)
 		printf("Error:\nLoading textures\n");
+	else if (err_code == 8)
+		printf("Error:\nGeneral parsing error\n");
+	else if (err_code == 9)
+		printf("Error:\nCan't open the FD\n");
 	else
 		printf("Error:\nOther error\n");
 	exit(err_code);

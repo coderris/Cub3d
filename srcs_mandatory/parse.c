@@ -79,20 +79,22 @@ static int	ft_check_closed_aux(char **map, int i)
 	int		j;
 	int		pos;
 
-
 	while (map[i] != NULL)
 	{
 		j = 0;
 		while (map[i][j] == ' ')
 			j++;
-		if (map[i][j] != '1' && map[i][j] != '\0' && ft_special_character(map[i][j]))
+		if (map[i][j] != '1' && map[i][j] != '\0'
+				&& ft_special_character(map[i][j]))
 			return (1);
 		while (map[i][j] != '\n' && map[i][j] != '\0')
 		{
-			if (!ft_strchr("10 NSEW", map[i][j]) && ft_special_character(map[i][j]))
+			if (!ft_strchr("10 NSEW", map[i][j])
+				&& ft_special_character(map[i][j]))
 				return (1);
 			pos = 0;
-			if (ft_strchr("0NSEW", map[i][j]) && ft_special_character(map[i][j]))
+			if (ft_strchr("0NSEW", map[i][j])
+				&& ft_special_character(map[i][j]))
 				pos = ft_check_pos(map, j, i);
 			if (pos)
 				return (1);
@@ -116,20 +118,14 @@ int	ft_parse_map(char *map, t_map_sett *map_sett)
 	int	fd;
 
 	if (ft_check_ext(map))
-		return (ft_print_error(2), 1);
+		return (2);
 	fd = open(map, O_RDONLY);
 	if (fd < 0)
-		return (ft_print_error(2), 1);
+		return (9);
 	if (ft_check_form(fd, map_sett))
-	{
-		close(fd);
-		ft_print_error(4);
-	}
+		return (close(fd), 4);
 	if (ft_check_map(fd, map_sett))
-	{
-		close(fd);
-		ft_print_error(3);
-	}
+		return (close(fd), 3);
 	close(fd);
 	return (0);
 }

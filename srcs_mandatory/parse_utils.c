@@ -18,7 +18,10 @@ static int	*ft_add_colors(char *line, t_map_sett *map_sett)
 
 	numbers = ft_take_nums(line + 1);
 	if (!numbers)
+	{
+		free(line);
 		clean_exit(map_sett, 4);
+	}
 	return (numbers);
 }
 
@@ -39,33 +42,40 @@ int	ft_fill_textures(char *line, t_map_sett *map_sett)
 	if (!ft_strncmp(line, CEILING, 1))
 		return (map_sett->ceiling = ft_add_colors(line, map_sett), 1);
 	if (!ft_strncmp(line, FLOOR, 1))
-	{
-		map_sett->floor = ft_add_colors(line, map_sett);
-		return (1);
-	}
+		return (map_sett->floor = ft_add_colors(line, map_sett), 1);
 	return (0);
 }
 
 char	*ft_add_text(char *line, t_map_sett *map_sett, char *texture, char *dir)
 {
 	char	*path;
+	char	*result;
 
 	if (texture)
+	{
+		free(line);
 		clean_exit(map_sett, 4);
+	}
 	path = ft_check_line(line + 2);
 	if (path == NULL)
+	{
+		free(line);
 		clean_exit(map_sett, 4);
+	}
+	result = ft_strdup(path);
+	free(path);
 	if (!ft_strcmp("NO", dir))
-		return (ft_strdup(path));
+		return (result);
 	else if (!ft_strcmp("SO", dir))
-		return (ft_strdup(path));
+		return (result);
 	else if (!ft_strcmp("WE", dir))
-		return (ft_strdup(path));
+		return (result);
 	else if (!ft_strcmp("EA", dir))
-		return (ft_strdup(path));
+		return (result);
 	clean_exit(map_sett, 4);
 	return (NULL);
 }
+
 static char	*ft_clean_path(char *old_path)
 {
 	char	*path;
@@ -75,6 +85,7 @@ static char	*ft_clean_path(char *old_path)
 	path = ft_strtrim(old_path, " \t\n\r");
 	return (path);
 }
+
 char	*ft_check_line(char *line)
 {
 	char	*path;

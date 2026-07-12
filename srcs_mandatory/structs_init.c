@@ -6,7 +6,7 @@
 /*   By: lanton-m <lanton-m@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/10 11:27:32 by lanton-m          #+#    #+#             */
-/*   Updated: 2026/07/02 22:33:24 by lanton-m         ###   ########.fr       */
+/*   Updated: 2026/07/12 20:27:33 by lanton-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -214,19 +214,19 @@ void	ft_sett_addr(t_game_instance *game_init, t_map_sett *map_sett)
 		&game_init->map_data.textures.no.endian);
 	game_init->map_data.textures.so.addr = mlx_get_data_addr(
 		game_init->map_data.textures.so.img,
-        &game_init->map_data.textures.so.bpp,
-        &game_init->map_data.textures.so.line_len,
-        &game_init->map_data.textures.so.endian);
+		&game_init->map_data.textures.so.bpp,
+		&game_init->map_data.textures.so.line_len,
+		&game_init->map_data.textures.so.endian);
 	game_init->map_data.textures.we.addr = mlx_get_data_addr(
-        game_init->map_data.textures.we.img,
-        &game_init->map_data.textures.we.bpp,
-        &game_init->map_data.textures.we.line_len,
-        &game_init->map_data.textures.we.endian);
+		game_init->map_data.textures.we.img,
+		&game_init->map_data.textures.we.bpp,
+		&game_init->map_data.textures.we.line_len,
+		&game_init->map_data.textures.we.endian);
 	game_init->map_data.textures.ea.addr = mlx_get_data_addr(
-        game_init->map_data.textures.ea.img,
+		game_init->map_data.textures.ea.img,
 		&game_init->map_data.textures.ea.bpp,
-        &game_init->map_data.textures.ea.line_len,
-        &game_init->map_data.textures.ea.endian);
+		&game_init->map_data.textures.ea.line_len,
+		&game_init->map_data.textures.ea.endian);
 	if (!game_init->map_data.textures.no.addr || !game_init->map_data.textures.so.addr
 		|| !game_init->map_data.textures.we.addr || !game_init->map_data.textures.ea.addr)
 		ft_general_clean(game_init, 7);
@@ -245,7 +245,7 @@ void	ft_dda_init(t_game_instance *game)
 	game->dda.sid_dist_X = 0;
 	game->dda.sid_dist_Y = 0;
 	game->dda.x = game->map_data.player.map_x;
-    game->dda.y = game->map_data.player.map_y;
+	game->dda.y = game->map_data.player.map_y;
 }
 
 void	ft_set_rays(t_game_instance *game, int x)

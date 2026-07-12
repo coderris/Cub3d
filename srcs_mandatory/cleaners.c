@@ -50,9 +50,11 @@ void	clean_exit(t_map_sett *map_sett, int err_cod)
 	ft_print_error(err_cod);
 }
 
-
 void	ft_general_clean(t_game_instance *game, int err_cod)
 {
+	int	i;
+
+	i = 0;
 	if (!game)
 		return ;
 	if (game->mlx_ptr)
@@ -73,5 +75,9 @@ void	ft_general_clean(t_game_instance *game, int err_cod)
 		free(game->mlx_ptr);
 	}
 	free_matrix(game->map_data.map.grid);
-	ft_print_error(err_cod);
+	free(game);
+	if (err_cod == 0)
+		printf("Closing window. Good game\n");
+	else
+		ft_print_error(err_cod);
 }

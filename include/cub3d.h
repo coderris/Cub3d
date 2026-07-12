@@ -21,8 +21,8 @@
 # include <stdio.h>
 # include <math.h>
 
-# define WIN_WIDTH 1800
-# define WIN_HEIGHT 900
+# define WIN_WIDTH 3900
+# define WIN_HEIGHT 1800
 # define NORTH "NO"
 # define SOUTH "SO"
 # define WEST "WE"

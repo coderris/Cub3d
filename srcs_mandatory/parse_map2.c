@@ -42,6 +42,7 @@ int	ft_check_player(t_map_sett *map_sett)
 		return (1);
 	return (0);
 }
+
 int	ft_special_character(char c)
 {
 	if (c == '\n')
@@ -52,6 +53,7 @@ int	ft_special_character(char c)
 		return (0);
 	return (1);
 }
+
 int	ft_check_invalid_char(t_map_sett *map_sett)
 {
 	int		i;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: najlghar <najlghar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lanton-m <lanton-m@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/28 19:07:50 by lanton-m          #+#    #+#             */
-/*   Updated: 2026/07/09 20:54:05 by najlghar         ###   ########.fr       */
+/*   Updated: 2026/07/12 20:32:19 by lanton-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,6 @@ static int	ft_get_tex_x(t_game_instance *game, t_rays *ray, t_img *tex)
 		wall_x = game->map_data.player.x + ray->dist * ray->ray_x_dir;
 	wall_x -= floor(wall_x);
 	tex_x = (int)(wall_x * tex->width);
-	// invertirmos las paredes que no están bien orientadas  
 	if ((ray->side == 0 && ray->ray_x_dir < 0)
 		|| (ray->side == 1 && ray->ray_y_dir > 0))
 		tex_x = tex->width - tex_x - 1;
@@ -67,7 +66,6 @@ static void	ft_draw_wall_col(t_game_instance *game, int x, t_rays *ray,
 	int draw_start, int draw_end)
 {
 	t_img	*tex;
-	int		tex_x;
 	int		line_h;
 	double	step;
 	double	tex_pos;
@@ -75,7 +73,6 @@ static void	ft_draw_wall_col(t_game_instance *game, int x, t_rays *ray,
 	int		tex_y;
 
 	tex = ft_select_texture(game, ray);
-	tex_x = ft_get_tex_x(game, ray, tex);
 	line_h = (int)(WIN_HEIGHT / ray->dist);
 	step = 1.0 * tex->height / line_h;
 	tex_pos = (draw_start - WIN_HEIGHT / 2 + line_h / 2) * step;
@@ -86,7 +83,7 @@ static void	ft_draw_wall_col(t_game_instance *game, int x, t_rays *ray,
 		if (tex_y >= tex->height)
 			tex_y = tex->height - 1;
 		ft_my_pixel_put(&game->screen, x, y,
-			ft_my_pixel_get(tex, tex_x, tex_y));
+			ft_my_pixel_get(tex, ft_get_tex_x(game, ray, tex), tex_y));
 		tex_pos += step;
 		y++;
 	}
