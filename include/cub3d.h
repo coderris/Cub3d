@@ -21,8 +21,8 @@
 # include <stdio.h>
 # include <math.h>
 
-# define WIN_WIDTH 3900
-# define WIN_HEIGHT 1800
+# define WIN_WIDTH 1080
+# define WIN_HEIGHT 600
 # define NORTH "NO"
 # define SOUTH "SO"
 # define WEST "WE"
@@ -218,8 +218,13 @@ int		ft_check_closed(t_map_sett *map_sett);
 // RENDER.C
 
 void	ft_my_pixel_put(t_img *img, int x, int y, int color);
-int		ft_my_pixel_get(t_img *img, int x, int y);
 void	ft_draw_frame(t_game_instance *game);
+
+// RENDER_UTILS.C
+
+t_img	*ft_select_texture(t_game_instance *game, t_rays *ray);
+int		ft_my_pixel_get(t_img *img, int x, int y);
+int		ft_get_tex_x(t_game_instance *game, t_rays *ray, t_img *tex);
 
 // STRUCT_INIT.C
 
