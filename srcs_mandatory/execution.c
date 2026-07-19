@@ -6,7 +6,7 @@
 /*   By: lanton-m <lanton-m@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/10 19:31:00 by lanton-m          #+#    #+#             */
-/*   Updated: 2026/07/12 20:23:05 by lanton-m         ###   ########.fr       */
+/*   Updated: 2026/07/18 22:25:32 by lanton-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,34 +17,6 @@ static void	ft_events(t_game_instance *game)
 	mlx_hook(game->win_ptr, 2, 1L << 0, (int (*)())ft_key_press, game);
 	mlx_hook(game->win_ptr, 3, 1L << 1, (int (*)())ft_key_release, game);
 	mlx_hook(game->win_ptr, 17, 1L << 17, (int (*)())ft_close_win, game);
-}
-
-static void	ft_step_side(t_game_instance *game)
-{
-	if (game->dda.ray_x_dir < 0)
-	{
-		game->dda.stepX = -1;
-		game->dda.sid_dist_X = (game->map_data.player.x - game->dda.x)
-			* game->dda.delt_dist_X;
-	}
-	else
-	{
-		game->dda.stepX = 1;
-		game->dda.sid_dist_X = (game->dda.x + 1 - game->map_data.player.x)
-			* game->dda.delt_dist_X;
-	}
-	if (game->dda.ray_y_dir < 0)
-	{
-		game->dda.stepY = -1;
-		game->dda.sid_dist_Y = (game->map_data.player.y - game->dda.y)
-			* game->dda.delt_dist_Y;
-	}
-	else
-	{
-		game->dda.stepY = 1;
-		game->dda.sid_dist_Y = (game->dda.y + 1 - game->map_data.player.y)
-			* game->dda.delt_dist_Y;
-	}
 }
 
 static void	ft_dda(t_game_instance *game)

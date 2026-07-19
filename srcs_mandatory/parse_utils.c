@@ -51,13 +51,8 @@ char	*ft_add_text(char *line, t_map_sett *map_sett, char *texture, char *dir)
 	char	*path;
 	char	*result;
 
-	if (texture)
-	{
-		free(line);
-		clean_exit(map_sett, 4);
-	}
 	path = ft_check_line(line + 2);
-	if (path == NULL)
+	if (texture || path == NULL)
 	{
 		free(line);
 		clean_exit(map_sett, 4);

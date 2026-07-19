@@ -12,20 +12,6 @@
 
 #include "../include/cub3d.h"
 
-static int	ft_check_data(t_map_sett *map_sett)
-{
-	if (!map_sett->n_text || !map_sett->s_text
-		|| !map_sett->w_text || !map_sett->e_text)
-		return (1);
-	if (map_sett->floor[0] < 0 || map_sett->floor[1] < 0
-		|| map_sett->floor[2] < 0)
-		return (1);
-	if (map_sett->ceiling[0] < 0 || map_sett->ceiling[1] < 0
-		|| map_sett->ceiling[2] < 0)
-		return (1);
-	return (0);
-}
-
 static int	ft_check_form(int fd, t_map_sett *map_sett)
 {
 	char	*line;
@@ -89,14 +75,7 @@ static int	ft_check_closed_aux(char **map, int i)
 			return (1);
 		while (map[i][j] != '\n' && map[i][j] != '\0')
 		{
-			if (!ft_strchr("10 NSEW", map[i][j])
-				&& ft_special_character(map[i][j]))
-				return (1);
-			pos = 0;
-			if (ft_strchr("0NSEW", map[i][j])
-				&& ft_special_character(map[i][j]))
-				pos = ft_check_pos(map, j, i);
-			if (pos)
+			if (ft_valid_char(map, map[i][j], i, j))
 				return (1);
 			j++;
 		}

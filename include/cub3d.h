@@ -166,6 +166,7 @@ typedef struct s_game_instance
 
 //ACTIONS.C
 
+void	ft_step_side(t_game_instance *game);
 void	ft_handle_movement(t_game_instance *game, double delta);
 
 //CALLBACKS.C
@@ -197,13 +198,19 @@ int		ft_check_player(t_map_sett *map_sett);
 int		ft_check_invalid_char(t_map_sett *map_sett);
 int		ft_check_ext(char *map);
 int		ft_check_pos(char **map, int col, int row);
-int		ft_special_character(char c);
+
 
 // PARSE_UTILS.C
 
 int		ft_fill_textures(char *line, t_map_sett *map_sett);
 char	*ft_add_text(char *line, t_map_sett *map_sett, char *texture, char *dir);
 char	*ft_check_line(char *line);
+
+//PARSE_UTILS1.C
+
+int		ft_special_character(char c);
+int		ft_check_data(t_map_sett *map_sett);
+int		ft_valid_char(char **map, char c, int i, int j);
 
 //PARSE_UTILS2.C
 

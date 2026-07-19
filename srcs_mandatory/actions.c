@@ -6,7 +6,7 @@
 /*   By: lanton-m <lanton-m@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/24 22:23:43 by lanton-m          #+#    #+#             */
-/*   Updated: 2026/07/12 20:17:41 by lanton-m         ###   ########.fr       */
+/*   Updated: 2026/07/18 19:06:39 by lanton-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,4 +76,32 @@ void	ft_handle_movement(t_game_instance *game, double delta)
 		ft_rotate(game, -delta);
 	if (game->map_data.keys.right)
 		ft_rotate(game, delta);
+}
+
+void	ft_step_side(t_game_instance *game)
+{
+	if (game->dda.ray_x_dir < 0)
+	{
+		game->dda.stepX = -1;
+		game->dda.sid_dist_X = (game->map_data.player.x - game->dda.x)
+			* game->dda.delt_dist_X;
+	}
+	else
+	{
+		game->dda.stepX = 1;
+		game->dda.sid_dist_X = (game->dda.x + 1 - game->map_data.player.x)
+			* game->dda.delt_dist_X;
+	}
+	if (game->dda.ray_y_dir < 0)
+	{
+		game->dda.stepY = -1;
+		game->dda.sid_dist_Y = (game->map_data.player.y - game->dda.y)
+			* game->dda.delt_dist_Y;
+	}
+	else
+	{
+		game->dda.stepY = 1;
+		game->dda.sid_dist_Y = (game->dda.y + 1 - game->map_data.player.y)
+			* game->dda.delt_dist_Y;
+	}
 }
