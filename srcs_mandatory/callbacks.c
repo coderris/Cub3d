@@ -6,7 +6,7 @@
 /*   By: lanton-m <lanton-m@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/24 21:43:49 by lanton-m          #+#    #+#             */
-/*   Updated: 2026/07/12 20:18:15 by lanton-m         ###   ########.fr       */
+/*   Updated: 2026/08/13 19:42:13 by lanton-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	ft_key_press(int keycode, t_game_instance *game)
 	else if (keycode == RIGHT)
 		game->map_data.keys.right = 1;
 	else if (keycode == ESC)
-		ft_close_win(0, game);
+		ft_close_win(game);
 	return (0);
 }
 
@@ -48,8 +48,8 @@ int	ft_key_release(int keycode, t_game_instance *game)
 	return (0);
 }
 
-int	ft_close_win(int ex_val, t_game_instance *game)
+int	ft_close_win(t_game_instance *game)
 {
-	ft_general_clean(game, ex_val);
+	ft_general_clean(game, 0);
 	exit(0);
 }

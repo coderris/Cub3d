@@ -30,6 +30,7 @@ void	clean_exit(t_map_sett *map_sett, int err_cod)
 	int	i;
 
 	i = 0;
+	get_next_line(-1, 1);
 	if (map_sett->n_text)
 		free(map_sett->n_text);
 	if (map_sett->s_text)
@@ -52,6 +53,7 @@ void	clean_exit(t_map_sett *map_sett, int err_cod)
 
 void	ft_general_clean(t_game_instance *game, int err_cod)
 {
+	get_next_line(-1, 1);
 	if (!game)
 		return ;
 	if (game->mlx_ptr)

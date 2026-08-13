@@ -18,7 +18,7 @@ static char	*ft_find_map_start(int fd)
 
 	while (1)
 	{
-		line = get_next_line(fd);
+		line = get_next_line(fd, 0);
 		if (!line)
 			return (NULL);
 		if (ft_strncmp(line, "\n", 1))
@@ -52,7 +52,7 @@ static char	**ft_read_map(int fd, char *line)
 	map[i] = NULL;
 	while (1)
 	{
-		line = get_next_line(fd);
+		line = get_next_line(fd, 0);
 		if (!line)
 			break ;
 		if (!ft_strncmp(line, "\n", 1))

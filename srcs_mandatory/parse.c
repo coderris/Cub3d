@@ -21,7 +21,7 @@ static int	ft_check_form(int fd, t_map_sett *map_sett)
 	count = 0;
 	while (count < 6)
 	{
-		line = get_next_line(fd);
+		line = get_next_line(fd, 0);
 		if (!line)
 			break ;
 		if (!ft_strncmp(line, "\n", 1))

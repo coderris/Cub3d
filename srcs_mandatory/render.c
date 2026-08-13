@@ -6,7 +6,7 @@
 /*   By: lanton-m <lanton-m@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/28 19:07:50 by lanton-m          #+#    #+#             */
-/*   Updated: 2026/07/18 22:30:05 by lanton-m         ###   ########.fr       */
+/*   Updated: 2026/07/19 17:59:25 by lanton-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,8 +98,6 @@ void	ft_draw_frame(t_game_instance *game)
 		ft_draw_ceiling(game, x, draw_start, game->map_data.ceiling);
 		ft_draw_wall_col(game, x, draw_start, draw_end);
 		ft_draw_floor(game, x, draw_end, game->map_data.floor);
-		if (x > (int)(WIN_WIDTH/1.50))
-			ft_draw_map(game, x)
 		x++;
 	}
 }

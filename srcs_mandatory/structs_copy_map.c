@@ -6,7 +6,7 @@
 /*   By: lanton-m <lanton-m@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/15 23:10:00 by lanton-m          #+#    #+#             */
-/*   Updated: 2026/07/15 23:13:45 by lanton-m         ###   ########.fr       */
+/*   Updated: 2026/08/13 20:10:28 by lanton-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,14 @@ static void	ft_copy_map_cell(t_game_instance *game, t_map_sett *map_sett,
 	int i, int j)
 {
 	char	cell;
+	int		len;
 
-	cell = map_sett->map[i][j];
-	if (j < (int)ft_strlen(map_sett->map[i]) && cell != '\n')
+	len = (int)ft_strlen(map_sett->map[i]);
+	if (j < len)
+		cell = map_sett->map[i][j];
+	else
+		cell = '\0';
+	if (j < len && cell != '\n' && cell != '\0')
 	{
 		if (cell == ' ')
 			game->map_data.map.grid[i][j] = '1';

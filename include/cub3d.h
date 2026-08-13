@@ -21,8 +21,8 @@
 # include <stdio.h>
 # include <math.h>
 
-# define WIN_WIDTH 1080
-# define WIN_HEIGHT 600
+# define WIN_WIDTH 1980
+# define WIN_HEIGHT 800
 # define NORTH "NO"
 # define SOUTH "SO"
 # define WEST "WE"
@@ -173,7 +173,7 @@ void	ft_handle_movement(t_game_instance *game, double delta);
 
 int	ft_key_press(int keycode, t_game_instance *game);
 int ft_key_release(int keycode, t_game_instance *game);
-int	ft_close_win(int keycode, t_game_instance *game);
+int	ft_close_win(t_game_instance *game);
 
 // CLEANERS.C
 
