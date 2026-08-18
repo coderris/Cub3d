@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: najlghar <najlghar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lanton-m <lanton-m@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/20 15:56:32 by lanton-m          #+#    #+#             */
-/*   Updated: 2026/05/07 13:44:58 by najlghar         ###   ########.fr       */
+/*   Updated: 2026/08/18 21:42:52 by lanton-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,15 @@ static int			ft_found_error(int fd);
 static void			ft_free(char **str);
 static char			*ft_slice(char **str);
 
-char	*get_next_line(int fd)
+char	*get_next_line(int fd, int clean)
 {
 	int			size;
 	char		*buffer;
 	char		*support;
 	static char	*string;
 
+	if (clean)
+		return (ft_free(&string), NULL);
 	if (ft_found_error(fd))
 		return (NULL);
 	buffer = malloc(sizeof(char) * (BUFFER_SIZE + 1));
