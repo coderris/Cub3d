@@ -40,7 +40,8 @@ MLX_PATH = $(LIBS_PATH)mlx/
 # Source files
 SRCS_FILES = main.c actions.c callbacks.c cleaners.c error_message.c execution.c \
 			parse_map1.c parse_map2.c parse_utils.c parse_utils2.c parse.c \
-			render.c structs_init.c time.c
+			render.c structs_init.c structs_dda.c structs_copy_map.c \
+			structs_dir.c structs_text.c time.c render_utils.c parse_utils1.c
 
 
 # Object files

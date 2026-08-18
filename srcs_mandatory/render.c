@@ -6,7 +6,7 @@
 /*   By: lanton-m <lanton-m@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/28 19:07:50 by lanton-m          #+#    #+#             */
-/*   Updated: 2026/06/28 19:17:24 by lanton-m         ###   ########.fr       */
+/*   Updated: 2026/07/19 17:59:25 by lanton-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,85 +22,56 @@ void	ft_my_pixel_put(t_img *img, int x, int y, int color)
 	*(unsigned int *)dst = color;
 }
 
-int	ft_my_pixel_get(t_img *img, int x, int y)
+static void	ft_draw_ceiling(t_game_instance *game, int x,
+	int draw_start, t_rgb color)
 {
-	char	*src;
+	int	y;
+	int	rgb;
 
-	if (x < 0 || y < 0 || x >= img->width || y >= img->height)
-		return (0);
-	src = img->addr + (y * img->line_len + x * (img->bpp / 8));
-	return (*(unsigned int *)src);
-}
-
-static t_img	*ft_select_texture(t_game_instance *game, t_rays *ray)
-{
-	if (ray->side == 0)
+	rgb = (color.r << 16) | (color.g << 8) | color.b;
+	y = 0;
+	while (y < draw_start)
 	{
-		if (ray->step_x > 0)
-			return (&game->map_data.textures.we);
-		return (&game->map_data.textures.ea);
-	}
-	if (ray->step_y > 0)
-		return (&game->map_data.textures.no);
-	return (&game->map_data.textures.so);
-}
-
-static int	ft_get_tex_x(t_game_instance *game, t_rays *ray, t_img *tex)
-{
-	double	wall_x;
-	int		tex_x;
-
-	if (ray->side == 0)
-		wall_x = game->map_data.player.y + ray->dist * ray->ray_y_dir;
-	else
-		wall_x = game->map_data.player.x + ray->dist * ray->ray_x_dir;
-	wall_x -= floor(wall_x);
-	tex_x = (int)(wall_x * tex->width);
-	if (ray->side == 0 && ray->ray_x_dir > 0)
-		tex_x = tex->width - tex_x - 1;
-	if (ray->side == 1 && ray->ray_y_dir < 0)
-		tex_x = tex->width - tex_x - 1;
-	return (tex_x);
-}
-
-static void	ft_draw_wall_col(t_game_instance *game, int x, t_rays *ray,
-	int draw_start, int draw_end)
-{
-	t_img	*tex;
-	int		tex_x;
-	int		line_h;
-	double	step;
-	double	tex_pos;
-	int		y;
-	int		tex_y;
-
-	tex = ft_select_texture(game, ray);
-	tex_x = ft_get_tex_x(game, ray, tex);
-	line_h = (int)(WIN_HEIGHT / ray->dist);
-	step = 1.0 * tex->height / line_h;
-	tex_pos = (draw_start - WIN_HEIGHT / 2 + line_h / 2) * step;
-	y = draw_start;
-	while (y < draw_end)
-	{
-		tex_y = (int)tex_pos;
-		if (tex_y >= tex->height)
-			tex_y = tex->height - 1;
-		ft_my_pixel_put(&game->screen, x, y,
-			ft_my_pixel_get(tex, tex_x, tex_y));
-		tex_pos += step;
+		ft_my_pixel_put(&game->screen, x, y, rgb);
 		y++;
 	}
 }
 
-static void	ft_draw_flat(t_game_instance *game, int x, int from, int to,
+static void	ft_draw_wall_col(t_game_instance *game, int x,
+	int draw_start, int draw_end)
+{
+	t_img	*tex;
+	int		line_h;
+	double	step;
+	double	tex_pos;
+	int		tex_y;
+
+	tex = ft_select_texture(game, &game->rays[x]);
+	line_h = (int)(WIN_HEIGHT / game->rays[x].dist);
+	step = 1.0 * tex->height / line_h;
+	tex_pos = (draw_start - WIN_HEIGHT / 2 + line_h / 2) * step;
+	while (draw_start < draw_end)
+	{
+		tex_y = (int)tex_pos;
+		if (tex_y >= tex->height)
+			tex_y = tex->height - 1;
+		ft_my_pixel_put(&game->screen, x, draw_start,
+			ft_my_pixel_get(tex, ft_get_tex_x(game, &game->rays[x], tex),
+				tex_y));
+		tex_pos += step;
+		draw_start++;
+	}
+}
+
+static void	ft_draw_floor(t_game_instance *game, int x, int draw_end,
 	t_rgb color)
 {
 	int	y;
 	int	rgb;
 
 	rgb = (color.r << 16) | (color.g << 8) | color.b;
-	y = from;
-	while (y < to)
+	y = draw_end;
+	while (y < WIN_HEIGHT)
 	{
 		ft_my_pixel_put(&game->screen, x, y, rgb);
 		y++;
@@ -124,9 +95,9 @@ void	ft_draw_frame(t_game_instance *game)
 		draw_end = line_h / 2 + WIN_HEIGHT / 2;
 		if (draw_end >= WIN_HEIGHT)
 			draw_end = WIN_HEIGHT - 1;
-		ft_draw_flat(game, x, 0, draw_start, game->map_data.ceiling);
-		ft_draw_wall_col(game, x, &game->rays[x], draw_start, draw_end);
-		ft_draw_flat(game, x, draw_end, WIN_HEIGHT, game->map_data.floor);
+		ft_draw_ceiling(game, x, draw_start, game->map_data.ceiling);
+		ft_draw_wall_col(game, x, draw_start, draw_end);
+		ft_draw_floor(game, x, draw_end, game->map_data.floor);
 		x++;
 	}
 }

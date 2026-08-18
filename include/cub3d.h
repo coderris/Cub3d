@@ -21,8 +21,8 @@
 # include <stdio.h>
 # include <math.h>
 
-# define WIN_WIDTH 800
-# define WIN_HEIGHT 600
+# define WIN_WIDTH 1980
+# define WIN_HEIGHT 800
 # define NORTH "NO"
 # define SOUTH "SO"
 # define WEST "WE"
@@ -101,16 +101,16 @@ typedef struct s_keys
 
 typedef struct s_game_info
 {
-	int		map_x;
-	int		map_y;
-	double	x;
-	double	y;
-	double	dir_x;
-	double	dir_y;
-	double	plane_x;
-	double	plane_y;
-	double	time;
-	double	old_time;
+	double		map_x;
+	double		map_y;
+	double		x;
+	double		y;
+	double		dir_x;
+	double		dir_y;
+	double		plane_x;
+	double		plane_y;
+	double		time;
+	double		old_time;
 }	t_game_info;
 
 typedef struct s_game
@@ -166,13 +166,14 @@ typedef struct s_game_instance
 
 //ACTIONS.C
 
+void	ft_step_side(t_game_instance *game);
 void	ft_handle_movement(t_game_instance *game, double delta);
 
 //CALLBACKS.C
 
 int	ft_key_press(int keycode, t_game_instance *game);
 int ft_key_release(int keycode, t_game_instance *game);
-int	ft_close_win(int keycode, t_game_instance *game);
+int	ft_close_win(t_game_instance *game);
 
 // CLEANERS.C
 
@@ -197,13 +198,19 @@ int		ft_check_player(t_map_sett *map_sett);
 int		ft_check_invalid_char(t_map_sett *map_sett);
 int		ft_check_ext(char *map);
 int		ft_check_pos(char **map, int col, int row);
-int		ft_special_character(char c);
+
 
 // PARSE_UTILS.C
 
 int		ft_fill_textures(char *line, t_map_sett *map_sett);
 char	*ft_add_text(char *line, t_map_sett *map_sett, char *texture, char *dir);
 char	*ft_check_line(char *line);
+
+//PARSE_UTILS1.C
+
+int		ft_special_character(char c);
+int		ft_check_data(t_map_sett *map_sett);
+int		ft_valid_char(char **map, char c, int i, int j);
 
 //PARSE_UTILS2.C
 
@@ -218,8 +225,13 @@ int		ft_check_closed(t_map_sett *map_sett);
 // RENDER.C
 
 void	ft_my_pixel_put(t_img *img, int x, int y, int color);
-int		ft_my_pixel_get(t_img *img, int x, int y);
 void	ft_draw_frame(t_game_instance *game);
+
+// RENDER_UTILS.C
+
+t_img	*ft_select_texture(t_game_instance *game, t_rays *ray);
+int		ft_my_pixel_get(t_img *img, int x, int y);
+int		ft_get_tex_x(t_game_instance *game, t_rays *ray, t_img *tex);
 
 // STRUCT_INIT.C
 
